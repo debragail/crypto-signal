@@ -25,9 +25,9 @@ class WebhookNotifier(NotifierUtils):
         """
 
         if self.username and self.password:
-            request = requests.post(self.url, json=message, auth=(self.username, self.password))
+            request = requests.post(self.url, json=message, auth=(self.username, self.password), timeout=60)
         else:
-            request = requests.post(self.url, json=message)
+            request = requests.post(self.url, json=message, timeout=60)
 
         if not request.status_code == requests.codes.ok:
             self.logger.error("Request failed: %s - %s", request.status_code, request.content)
